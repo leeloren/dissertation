@@ -65,8 +65,8 @@
 /* Numbers only in first column */
 .column:first-child .line-number {
   position: absolute;
-  margin-left: 0;
-  left: -35px !important;
+  margin-left: -2em;
+  margin-top: 0.25em;
   z-index: 1;
   font-family: "Helvetica", sans-serif;
   color: #999;
@@ -91,7 +91,7 @@
 
 /* Content spacing */
 .edition-text {
-  margin-left: 40px !important; 
+  margin-left: 40px !important;
   position: relative;
   line-height: 1.2;
 }
