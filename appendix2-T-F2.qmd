@@ -5,326 +5,56 @@ format:
     page-layout: full
 ---
 
-## Berlin, Staatsbibliothek, MSS Simulata Orientalia 6
+# Berlin, Staatsbibliothek, MSS Simulata Orientalia 6
 
 Digitization available via The Digitized Collections of the Staatsbibliothek zu Berlin [HERE](http://resolver.staatsbibliothek-berlin.de/SBB000074F100000000).
 
 Photograph no.101 (featured upside down online) is the recto, and photograph no.89 is the verso.
 
-```{r tf2-setup, include=FALSE}
+```{r setup, include=FALSE}
 # Load the xml2 package
 library(xml2)
 ```
 
-::: {.column-page-outset}
-::: {layout="[[6,6,6]]"}
+::: {.column-page-outset layout="[[6,6,6]]"}
 
 ::: {.column}
-### Minimal
+## Minimal
 
-```{r tf2-minimal, results='asis'}
-# START OF "MINIMAL" CODE
-# Read the XML content
-xml_file <- read_xml("data/T-F2.xml")
+```{r}
+source("convert-xml-to-html.R")
+```
 
-# Extract both <l>, <cb>, and <pb> elements
-lines <- xml_find_all(xml_file, "//text//l | //text//cb | //text//pb")
 
-# Initialize an empty list to store the processed lines
-processed_lines <- list()
+```{r results='asis'}
 
-# Initialize line counter
-line_count <- 0
 
-# Function to process each element
-process_line <- function(line) {
-  # Handle page breaks differently
-  if (xml_name(line) == "pb") {
-    # Get folio number and format as standalone line
-    folio_num <- xml_attr(line, "n")
-    return(sprintf("<div class='folio-number'>%s</div>", folio_num))
-  }
-  
-  # Only increment line count for verse lines
-  if (xml_name(line) == "l") {
-    line_count <<- line_count + 1
-    # Add line number div every 5th line
-    line_number <- if (line_count %% 5 == 0) {
-      sprintf("<div class='line-number'>%d</div>", line_count)
-    } else {
-      ""
-    }
-  } else {
-    line_number <- ""
-  }
-  
-  # Find all <choice> elements within the line
-  choices <- xml_find_all(line, ".//choice")
-  for (choice in choices) {
-    # Extract the text from the <orig> tag
-    orig_text <- xml_text(xml_find_first(choice, ".//orig"))
-    # Remove the <choice> element and replace it with the text from the <orig> tag
-    xml_set_text(choice, paste0(orig_text, " "))
-  }
-  
-  # Now we want to remove any <reg> elements entirely
-  reg_elements <- xml_find_all(line, ".//reg")
-  xml_remove(reg_elements)
-  
-  # Replace <lb/> tags with HTML line break
-  lb_elements <- xml_find_all(line, ".//lb")
-  for (lb in lb_elements) {
-    xml_set_text(lb, "")
-  }
-  
-  # Return line with number if applicable
-  return(sprintf("<div style='line-height: 1.2;'>%s%s</div>", 
-              line_number, xml_text(line)))
-}
-
-# Process each line and wrap with <div class='column-break'> at each <cb/>
-for (line in lines) {
-  if (xml_name(line) == "cb") {
-    # Add a closing </div> for the previous column and an opening <div> for the new column
-    processed_lines <- c(processed_lines, "</div>", "<div class='column-break'>")
-  } else {
-    # Process the line and add it to the current column
-    processed_lines <- c(processed_lines, process_line(line))
-  }
-}
-
-# Process lines and wrap in edition-text div
-formatted_text <- paste(c("<div class='edition-text'>", processed_lines, "</div>"), collapse = "\n")
-cat(formatted_text)
+# PRINT "MINIMAL" VERSION
+convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "minimal")
 
 ```
 
 :::
 
 ::: {.column}
-### Intermediate
+## Intermediate
 
-```{r tf2-intermediate, results='asis'}
-# START OF "INTERMEDIATE" CODE
-# Read the XML content
-xml_file <- read_xml("data/T-F2.xml")
-
-# Extract the <l>, <cb>, and <pb> elements inside the <text> element
-lines <- xml_find_all(xml_file, "//text//l | //text//cb | //text//pb")
-
-# Initialize an empty list to store the processed lines
-processed_lines <- list()
-
-# Initialize line counter
-line_count <- 0
-
-# Function to process each element
-process_line <- function(line) {
-  # Handle page breaks differently
-  if (xml_name(line) == "pb") {
-    # Get folio number and format as standalone line
-    folio_num <- xml_attr(line, "n")
-    return(sprintf("<div class='folio-number'>%s</div>", folio_num))
-  }
-  
-  # Only increment line count for verse lines
-  if (xml_name(line) == "l") {
-    line_count <<- line_count + 1
-    
-    # SPECIAL CASE: Hard-code line v.6 to correct spacing
-    if (line_count == 6) {
-      return("<div style='line-height: 1.2;'>Dex la goert per savertu</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.8 to correct spacing
-    if (line_count == 8) {
-      return("<div style='line-height: 1.2;'>Ses mains drecet au ceo lestent</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.13 to correct spacing
-    if (line_count == 13) {
-      return("<div style='line-height: 1.2;'>de tere fusempres ravie</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.22 to correct apostrophe
-    if (line_count == 22) {
-      return("<div style='line-height: 1.2;'>sen commenca aleir sun pas</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.23 to correct accent
-    if (line_count == 23) {
-      return("<div style='line-height: 1.2;'>cuda fantome aveir trove</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.31 to correct apostrophe
-    if (line_count == 31) {
-      return("<div style='line-height: 1.2;'>baee fui en menfance</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.32 to correct spacing
-    if (line_count == 32) {
-      return("<div style='line-height: 1.2;'>en Deai tote mafiance</div>")
-    }
-    
-    # Add line number div every 5th line
-    line_number <- if (line_count %% 5 == 0) {
-      sprintf("<div class='line-number'>%d</div>", line_count)
-    } else {
-      ""
-    }
-  } else {
-    line_number <- ""
-  }
-  
-  # Find all <choice> elements within the line
-  choices <- xml_find_all(line, ".//choice")
-  for (choice in choices) {
-    # Check if the <choice> element contains <abbr> and <expan>
-    abbr_exists <- xml_find_first(choice, ".//abbr")
-    expan_exists <- xml_find_first(choice, ".//expan")
-    
-    if (!is.na(abbr_exists) && !is.na(expan_exists)) {
-      # If <abbr> and <expan> tags exist, extract only the <reg> text from <expan>
-      reg_text <- xml_text(xml_find_first(choice, ".//expan/reg"))
-      xml_set_text(choice, paste0(reg_text, " "))
-    } else {
-      # For non-abbreviation choices, keep original behavior
-      orig_text <- xml_text(xml_find_first(choice, ".//orig"))
-      xml_set_text(choice, paste0(orig_text, " "))
-    }
-  }
-  
-  # Now we want to remove any <reg> elements entirely
-  reg_elements <- xml_find_all(line, ".//reg")
-  xml_remove(reg_elements)
-  
-  # Replace <lb/> tags with HTML line break
-  lb_elements <- xml_find_all(line, ".//lb")
-  for (lb in lb_elements) {
-    xml_set_text(lb, "")
-  }
-  
-  # Return line with number if applicable
-  return(sprintf("<div style='line-height: 1.2;'>%s%s</div>", 
-              line_number, xml_text(line)))
-}
-
-# Process each line and wrap with <div class='column-break'> at each <cb/>
-for (line in lines) {
-  if (xml_name(line) == "cb") {
-    # Add a closing </div> for the previous column and an opening <div> for the new column
-    processed_lines <- c(processed_lines, "</div>", "<div class='column-break'>")
-  } else {
-    # Process the line and add it to the current column
-    processed_lines <- c(processed_lines, process_line(line))
-  }
-}
-
-# Process lines and wrap in edition-text div
-formatted_text <- paste(c("<div class='edition-text'>", processed_lines, "</div>"), collapse = "\n")
-cat(formatted_text)
+```{r results='asis'}
+# PRINT "INTERMEDIATE VERSION"
+convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "intermediate")
 
 ```
 
 :::
 
 ::: {.column}
-### Extensive
+## Extensive
 
-```{r tf2-extensive, results='asis'}
-# START OF "EXTENSIVE" CODE
-# Read the XML content
-xml_file <- read_xml("data/T-F2.xml")
-
-# Extract the <l>, <cb>, and <pb> elements inside the <text> element
-lines <- xml_find_all(xml_file, "//text//l | //text//cb | //text//pb")
-
-# Initialize an empty list to store the processed lines
-processed_lines <- list()
-
-# Initialize line counter
-line_count <- 0
-
-# Function to process each element
-process_line <- function(line) {
-  # Handle page breaks differently
-  if (xml_name(line) == "pb") {
-    # Get folio number and format as standalone line
-    folio_num <- xml_attr(line, "n")
-    return(sprintf("<div class='folio-number'>%s</div>", folio_num))
-  }
-  
-  # Only increment line count for verse lines
-  if (xml_name(line) == "l") {
-    line_count <<- line_count + 1
-    
-    # SPECIAL CASE: Hard-code line v.18 to correct brackets
-    if (line_count == 18) {
-      return("<div style='line-height: 1.2;'>[Nos] tre sires l’aveit si chere</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.19 to correct brackets
-    if (line_count == 19) {
-      return("<div style='line-height: 1.2;'>[Q] ue plus que dos piez e demie</div>")
-    }
-    
-    # SPECIAL CASE: Hard-code line v.20 to correct brackets
-    if (line_count == 20) {
-      return("<div style='line-height: 1.2;'><span class='line-number'>20</span>[A] veit entre la tere e le</div>")
-    }
-    
-    # Add line number div every 5th line
-    line_number <- if (line_count %% 5 == 0) {
-      sprintf("<div class='line-number'>%d</div>", line_count)
-    } else {
-      ""
-    }
-  } else {
-    line_number <- ""
-  }
-  
-  # Now we want to remove any <orig> elements entirely
-  orig_elements <- xml_find_all(line, ".//orig")
-  xml_remove(orig_elements)
-  
-  # Find all <choice> elements within the line
-  choices <- xml_find_all(line, ".//choice")
-  for (choice in choices) {
-    # Extract the text from the <reg> tag
-    reg_text <- xml_text(xml_find_first(choice, ".//reg"))
-    # Replace the <choice> element with the text from the <reg> tag
-    xml_set_text(choice, paste0(" ", reg_text, " "))
-  }
-  
-  # Replace <lb/> tags with HTML line break
-  lb_elements <- xml_find_all(line, ".//lb")
-  for (lb in lb_elements) {
-    xml_set_text(lb, "")
-  }
-  
-  # Return line with number if applicable
-  return(sprintf("<div style='line-height: 1.2;'>%s%s</div>", 
-              line_number, xml_text(line)))
-}
-
-# Process each line and wrap with <div class='column-break'> at each <cb/>
-for (line in lines) {
-  if (xml_name(line) == "cb") {
-    # Add a closing </div> for the previous column and an opening <div> for the new column
-    processed_lines <- c(processed_lines, "</div>", "<div class='column-break'>")
-  } else {
-    # Process the line and add it to the current column
-    processed_lines <- c(processed_lines, process_line(line))
-  }
-}
-
-# Process lines and wrap in edition-text div
-formatted_text <- paste(c("<div class='edition-text'>", processed_lines, "</div>"), collapse = "\n")
-cat(formatted_text)
+```{r results='asis'}
+#PRINT "EXTENSIVE" VERSION
+convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "extensive")
 
 ```
-
-:::
 
 :::
 
