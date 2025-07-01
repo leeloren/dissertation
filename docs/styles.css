@@ -338,6 +338,65 @@ body {
   font-family: "Helvetica", sans-serif;
 }
 
+/* Quote table styling - minimal, invisible appearance */
+.quote-table {
+  border: none !important;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  border-spacing: 0;
+}
+
+.quote-table th,
+.quote-table td {
+  border: none !important;
+  padding: 0.1em 0.3em !important;
+  text-align: left;
+  vertical-align: top;
+  background: transparent !important;
+}
+
+.quote-table th {
+  font-weight: normal !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  border-top: none !important;
+}
+
+/* Remove any default table styling */
+.quote-table thead,
+.quote-table tbody,
+.quote-table tfoot {
+  border: none !important;
+}
+
+.quote-table tr {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Remove borders from all table elements */
+.quote-table table,
+.quote-table caption,
+.quote-table colgroup,
+.quote-table col {
+  border: none !important;
+}
+
+/* Ensure no hover effects */
+.quote-table tr:hover,
+.quote-table td:hover,
+.quote-table th:hover {
+  background: transparent !important;
+}
+
+/* Remove any outline or box-shadow that might create visual borders */
+.quote-table,
+.quote-table * {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .folio-number {
   display: inline-block;
   position: absolute;

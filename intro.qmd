@@ -2,5 +2,32 @@
 title: "Introduction"
 ---
 
-This is where my introduction will go....
+```{r setup, include=FALSE}
+# Load required libraries
+library(rvest)
+library(xml2)
+library(dplyr)
+library(stringr)
 
+source("extract_sections_from_googledoc.R")
+source("convert-html-to-markdown.R")
+```
+
+```{r content, echo=FALSE, results='asis'}
+# Extract Introduction from google doc (suppress output)
+invisible(
+    extract_section_by_name(
+        html_file = "temp_files/dissertation.html", 
+        section_name = "Introduction", 
+        output_file = "temp_files/googledoc_intro.html", 
+        clean_html = FALSE, 
+        verbose = FALSE
+    )
+)
+
+# Read and convert the HTML to markdown
+converted_markdown <- convert_html_to_markdown("temp_files/googledoc_intro.html")
+
+# Output the markdown content
+cat(converted_markdown)
+```

@@ -47,3 +47,7 @@ po/*~
 rsconnect/
 
 /.quarto/
+
+secrets/
+.env
+temp_files/
