@@ -5,29 +5,32 @@ format:
     page-layout: full
 ---
 
-## Paris, BnF, Français 23112
+## Paris, BnF, Français 23112 {.unlisted}
 
 Digitization available via Gallica [HERE](https://gallica.bnf.fr/ark:/12148/btv1b9063234c/f337.item.r=MS%2023112).
 
-```{r ta-setup, include=FALSE}
-# Load the xml2 package
-library(xml2)
-```
 
 ::: {.column-page-outset layout="[[6,6,6]]"}
 
 ::: {.column}
 ### Minimal
 
+```{r ta-setup}
+# Load the xml2 package
+library(xml2)
 
-```{r}
-source("convert-xml-to-html.R")
+#Path to xml file
+path_xml <- "data/T-A.xml"
 ```
 
-```{r results='asis'}
+
+```{r ta-function, file="convert-xml-to-html.R"}
+```
+
+```{r ta-minimal, results='asis'}
 
 # PRINT "MINIMAL" VERSION
-convert_xml_to_html(xml_file = "data/T-A.xml", version_name = "minimal")
+convert_xml_to_html(xml_file = path_xml, version_name = "minimal")
 
 ```
 
@@ -37,9 +40,9 @@ convert_xml_to_html(xml_file = "data/T-A.xml", version_name = "minimal")
 ### Intermediate
 
 
-```{r results='asis'}
+```{r ta-intermediate, results='asis'}
 # PRINT "INTERMEDIATE VERSION"
-convert_xml_to_html(xml_file = "data/T-A.xml", version_name = "intermediate")
+convert_xml_to_html(xml_file = path_xml, version_name = "intermediate")
 
 ```
 
@@ -48,9 +51,9 @@ convert_xml_to_html(xml_file = "data/T-A.xml", version_name = "intermediate")
 ::: {.column}
 ### Extensive
 
-```{r results='asis'}
+```{r ta-extensive, results='asis'}
 #PRINT "EXTENSIVE" VERSION
-convert_xml_to_html(xml_file = "data/T-A.xml", version_name = "extensive")
+convert_xml_to_html(xml_file = path_xml, version_name = "extensive")
 ```
 
 :::

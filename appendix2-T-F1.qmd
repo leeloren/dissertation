@@ -5,19 +5,22 @@ format:
     page-layout: full
 ---
 
-# Manchester, John Rylands Library, French 6
+# Manchester, John Rylands Library, French 6  {.unlisted}
 
 Digitization available via The University of Manchester [HERE](https://luna.manchester.ac.uk/luna/servlet/detail/Man4MedievalVC~4~4~994331~227074?sort=reference_number%2Cimage_sequence_number%2Cparent_work_title%2Cdate_created&qvq=q:French%206;sort:reference_number%2Cimage_sequence_number%2Cparent_work_title%2Cdate_created;lc:Man4MedievalVC~4~4&mi=1&trs=4).
-
-```{r tf1-setup, include=FALSE}
-# Load the xml2 package
-library(xml2)
-```
 
 ::: {.column-page-outset layout="[[6,6,6,6]]"}
 
 ::: {.column}
 ## Nearly Diplomatic
+
+```{r tf1-setup}
+# Load the xml2 package
+library(xml2)
+
+#Path to xml file
+path_xml <- "data/T-F1.xml"
+```
 
 ```{r tf1-nearly-diplomatic, results='asis'}
 # START OF "NEARLY DIPLOMATIC" CODE
@@ -86,16 +89,15 @@ cat(formatted_text)
 ::: {.column}
 ## Minimal
 
-```{r}
-source("convert-xml-to-html.R")
+```{r tf1-function, file="convert-xml-to-html.R"}
 ```
 
 
-```{r results='asis'}
+```{r tf1-minimal, results='asis'}
 
 
 # PRINT "MINIMAL" VERSION
-convert_xml_to_html(xml_file = "data/T-F1.xml", version_name = "minimal")
+convert_xml_to_html(xml_file = path_xml, version_name = "minimal")
 
 ```
 
@@ -104,9 +106,9 @@ convert_xml_to_html(xml_file = "data/T-F1.xml", version_name = "minimal")
 ::: {.column}
 ## Intermediate
 
-```{r results='asis'}
+```{r tf1-intermediate, results='asis'}
 # PRINT "INTERMEDIATE VERSION"
-convert_xml_to_html(xml_file = "data/T-F1.xml", version_name = "intermediate")
+convert_xml_to_html(xml_file = path_xml, version_name = "intermediate")
 
 ```
 
@@ -115,9 +117,9 @@ convert_xml_to_html(xml_file = "data/T-F1.xml", version_name = "intermediate")
 ::: {.column}
 ## Extensive
 
-```{r results='asis'}
+```{r tf1-extensive, results='asis'}
 #PRINT "EXTENSIVE" VERSION
-convert_xml_to_html(xml_file = "data/T-F1.xml", version_name = "extensive")
+convert_xml_to_html(xml_file = path_xml, version_name = "extensive")
 
 ```
 

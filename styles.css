@@ -20,16 +20,23 @@ body {
   font-family: 'Junicode', serif;
 }
 
-/* Navigation styling */
-.sidebar {
+/* Let Quarto handle the main sidebar - only add transparency */
+.sidebar:not(.margin-sidebar) {
+  background-color: transparent !important;
+}
+
+/* Ensure margin sidebar (TOC) appears on the right */
+.sidebar.margin-sidebar {
   position: fixed;
-  width: 200px;
-  left: 10;
+  right: 0;
   top: 0;
+  width: 300px;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid #eee;
-  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: none;
+  z-index: 999;
+  padding: 1em;
 }
 
 /* Make sidebar background transparent in all states */
@@ -39,26 +46,18 @@ body {
   background-color: transparent !important;
 }
 
+
 /* Remove border when collapsed */
 .quarto-sidebar-collapse-item.collapse:not(.show) {
   border-right: none !important;
 }
 
-/* Main content adjustment */
+/* Main content adjustment - let Quarto handle left margin, just add right margin for TOC */
 .column-body-outset {
-  margin-left: 220px;  /* sidebar width + padding */
-  width: calc(100% - 240px);
-  padding: 0 1em;
+  margin-right: 320px; /* TOC width + padding */
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
-}
-
-/* When sidebar is collapsed */
-.quarto-sidebar-collapse-item.collapse:not(.show) ~ .column-body-outset {
-  margin-left: 0;
-  width: 100%;
-  background-color: transparent !important;
 }
 
 /* Container for all columns */
@@ -217,10 +216,9 @@ body {
   opacity: 1;
 }
 
-/* Container for portrait layout */
+/* Container for portrait layout - let Quarto handle left margin */
 .portrait-column-container {
-  margin-left: 220px;
-  width: calc(100% - 240px);
+  margin-right: 320px; /* TOC width + padding */
 }
 
 .text-container {

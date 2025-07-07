@@ -2,4 +2,33 @@
 title: "2.2 An Approach to Editing Version T, Part 2"
 ---
 
-This is the second part of my second chapter of my Quarto book...
+```{r setup, include=FALSE}
+# Load required libraries
+library(rvest)
+library(xml2)
+library(dplyr)
+library(stringr)
+
+source("extract_sections_from_googledoc.R")
+source("convert-html-to-markdown.R")
+```
+
+```{r content, echo=FALSE, results='asis'}
+# Extract the "Methods: Authoring in Quarto (The Portraits)" h2 subsection (suppress output)
+invisible(
+    extract_subsection_by_name(
+        html_file = "temp_files/dissertation.html", 
+        section_name = "Methods: Authoring in Quarto", 
+        heading_level = "h2",
+        output_file = "temp_files/googledoc_chapter2-2_methods.html", 
+        clean_html = FALSE, 
+        verbose = FALSE
+    )
+)
+
+# Read and convert the HTML to markdown
+converted_markdown <- convert_html_to_markdown("temp_files/googledoc_chapter2-2_methods.html")
+
+# Output the markdown content
+cat(converted_markdown)
+```

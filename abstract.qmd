@@ -3,8 +3,32 @@ title: "Abstract"
 format: html
 ---
 
-The twelfth-century Anglo-Norman verse redaction of *La Vie de sainte Marie l’Égyptienne* known as Version T was a popular saint’s Life in the later medieval period, and has been lauded, in the past few decades, for the quality of its verse and the ingenuity of the anonymous poet’s handling of the Latin source. Since its last edition in the late 1970s, the rise of New Philology and advances in digital methods call for a new edition of this exceptional text. Situating readers within both the literary scholarship surrounding the Life and debates concerning the role of digital methods in medieval studies, this dissertation presents a digital edition of Version T. Rather than collapsing T into a single normalized text, this edition foregrounds the multiplicity of the corpus. Its multi-column format renders editorial interventions transparent — ranging from nearly diplomatic transcription to extensive normalization — and invites readers to explore the text through degrees of mediation. Focusing especially on Version T’s most distinctive feature — the two portraits of Mary the Egyptian describing her first as a luxurious sinner and then as a devout ascetic —, the dissertation uses these passages as a test case for visualizing textual variation. Editorial work — I argue — is not merely reproductive but is itself an interpretive intervention, shaping resulting academic discourse surrounding the text. By making editorial labor apparent and variance clear, this approach supports rigorous literary analysis grounded in concrete textual evidence and offers a model for digital editions that balance fidelity to material sources with legibility.
+```{r setup, include=FALSE}
+# Load required libraries
+library(rvest)
+library(xml2)
+library(dplyr)
+library(stringr)
 
-The Introduction provides an overview of Version T and its critical reception, proposing editorial approaches that treat T as a plural body of texts. Chapter 1 evaluates how scholars currently discover, study, edit, and share medieval texts, offering a brief case study of the now-lost fragment T-F^2^. Examining the limitations of print and addressing counterarguments to digital methods, Chapter 1 advocates for digital methods rooted in material sources. Divided into two parts, Chapter 2 details the development and execution of the digital edition. Part 1 recounts the process of transcribing, encoding, and editing the available manuscript copies of T — material supplied in Appendix 2 as an initial step toward a complete edition. Part 2 offers the T portraits with English translations, using visualization techniques to clarify variance more effectively than traditional paratextual notes. This material supports the interpretive work of Chapter 3, which performs a close, comparative reading of the portraits, tracing patterns of negation, color, and metaphor to illuminate the text’s complex theological positioning of Mary as desirable. While the portraits alone vary modestly, the aggregation of differences across the T corpus provides stronger evidence for more confident and nuanced literary interpretations. Appendix 1 examines the T codices and addresses challenges of access, underscoring the importance of supplemental resources. Finally, adopting a digital format that integrates static and dynamic content, this dissertation embodies the push for more digitally forward scholarly work, reflecting a commitment to leveraging technology to enhance the accessibility, visualization, and interpretation of medieval texts.
+source("extract_sections_from_googledoc.R")
+source("convert-html-to-markdown.R")
+```
 
-**Keywords:** Mary the Egyptian; Version T; digital editing; medieval manuscript studies; hagiography
+```{r content, echo=FALSE, results='asis'}
+# Extract Abstract from google doc (suppress output)
+invisible(
+    extract_section_by_name(
+        html_file = "temp_files/dissertation.html", 
+        section_name = "Abstract", 
+        output_file = "temp_files/googledoc_abstract.html", 
+        clean_html = FALSE, 
+        verbose = FALSE
+    )
+)
+
+# Read and convert the abstract HTML to markdown
+converted_markdown <- convert_html_to_markdown("temp_files/googledoc_abstract.html")
+
+# Output the markdown content
+cat(converted_markdown)
+```

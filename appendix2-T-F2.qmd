@@ -5,33 +5,32 @@ format:
     page-layout: full
 ---
 
-# Berlin, Staatsbibliothek, MSS Simulata Orientalia 6
+# Berlin, Staatsbibliothek, MSS Simulata Orientalia 6  {.unlisted}
 
 Digitization available via The Digitized Collections of the Staatsbibliothek zu Berlin [HERE](http://resolver.staatsbibliothek-berlin.de/SBB000074F100000000).
 
 Photograph no.101 (featured upside down online) is the recto, and photograph no.89 is the verso.
-
-```{r setup, include=FALSE}
-# Load the xml2 package
-library(xml2)
-```
 
 ::: {.column-page-outset layout="[[6,6,6]]"}
 
 ::: {.column}
 ## Minimal
 
-```{r}
-source("convert-xml-to-html.R")
+```{r tf2-setup}
+# Load the xml2 package
+library(xml2)
+
+#Path to xml file
+path_xml <- "data/T-F2.xml"
+```
+
+```{r tf2-function, file="convert-xml-to-html.R"}
 ```
 
 
-```{r results='asis'}
-
-
+```{r tf2-minimal, results='asis'}
 # PRINT "MINIMAL" VERSION
-convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "minimal")
-
+convert_xml_to_html(xml_file = path_xml, version_name = "minimal")
 ```
 
 :::
@@ -39,10 +38,9 @@ convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "minimal")
 ::: {.column}
 ## Intermediate
 
-```{r results='asis'}
+```{r tf2-intermediate, results='asis'}
 # PRINT "INTERMEDIATE VERSION"
-convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "intermediate")
-
+convert_xml_to_html(xml_file = path_xml, version_name = "intermediate")
 ```
 
 :::
@@ -50,10 +48,9 @@ convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "intermediate")
 ::: {.column}
 ## Extensive
 
-```{r results='asis'}
+```{r tf2-extensive, results='asis'}
 #PRINT "EXTENSIVE" VERSION
-convert_xml_to_html(xml_file = "data/T-F2.xml", version_name = "extensive")
-
+convert_xml_to_html(xml_file = path_xml, version_name = "extensive")
 ```
 
 :::
