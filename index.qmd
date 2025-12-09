@@ -5,6 +5,6 @@ title: "Front Matter"  # This appears in navigation
 <div style="font-size: 1.1em;">
 A Dissertation presented to the Graduate Faculty of the University of Virginia in Candidacy for the Degree of Doctor of Philosophy
 
-????????, 2025
+January 2026
 
 </div>
