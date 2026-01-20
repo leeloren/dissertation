@@ -9,7 +9,7 @@ book:
       affiliation: 
         name: "Department of French, University of Virginia"
       orcid: "0009-0001-2153-9991"
-  date: "1/14/2026"
+  date: "1/19/2026"
   date-format: long
   chapters:
     - index.qmd
