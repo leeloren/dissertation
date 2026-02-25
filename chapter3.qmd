@@ -19,7 +19,7 @@ As discussed in the Introduction to this dissertation (sections ‘Why Version T
 
 The close reading of this chapter is based on the T portraits as defined in Chapter 2 (Portrait 1 vv.157-216 and Portrait 2 vv.613-700). Yet even drawing such firm boundaries around these passages risks obscuring how the manuscripts themselves frame them. In the surviving copies of Version T, decorated initials guide readers’ eyes to new scenes or signal passages of heightened importance.[^144] Several manuscripts — T-C, T-D, and fragment T-F^1^ — introduce Portrait 1 with an accentuated ‘D,’ visually foregrounding the ensuing description of Mary’s beauty and her many alluring qualities:
 
-![Oxford, Corpus Christi College, 232, f.38r, line 17/26 (T-C v.159). Detail.](images/Fig3.1T-C_f.38rDetail.png){#fig-3_1 width=100% fig-align="center"}
+![Oxford, Corpus Christi College, 232, f.38r, line 17/26 (T-C v.159). Detail. Reproduced by permission of the President and Fellows of Corpus Christi College, Oxford.](images/Fig3.1T-C_f.38rDetail.png){#fig-3_1 width=100% fig-align="center"}
 
 ![Paris, BnF, Français 19525, f.16rb, line 27/32 (T-D v.155) Detail.](images/Fig3.2T-D_f.16rbDetail.png){#fig-3_2 width=100% fig-align="center"}
 
