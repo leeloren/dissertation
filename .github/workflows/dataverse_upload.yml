@@ -1,3 +1,5 @@
+name: Upload to Dataverse
+
 on: 
   release:
   workflow_dispatch:
